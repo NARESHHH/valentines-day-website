@@ -3,6 +3,13 @@ import { dom } from "../dom.js";
 import { appState } from "../state.js";
 import { quoteToHtml } from "../utils/text.js";
 
+function normalizeLocalUploadUrl(url) {
+    const value = (url || "").trim();
+    if (!value) return "";
+    const localUploadMatch = value.match(/^https?:\/\/[^/]+(\/uploads\/.+)$/i);
+    return localUploadMatch ? localUploadMatch[1] : value;
+}
+
 export function setStatus(text, isError = false) {
     dom.statusText.textContent = text;
     dom.statusText.classList.toggle("error", isError);
@@ -23,7 +30,7 @@ export function renderGeneratedPage() {
     dom.successQuote.innerHTML = appState.quoteText ? quoteToHtml(appState.quoteText) : defaults.quote;
 
     if (appState.persistedImageUrl) {
-        dom.successImg.src = appState.persistedImageUrl;
+        dom.successImg.src = normalizeLocalUploadUrl(appState.persistedImageUrl);
         return;
     }
 

@@ -56,7 +56,7 @@ function buildApp() {
 
     const linkService = createLinkService({ databaseService, cryptoDataService });
 
-    const resolveBaseUrl = (req) => getBaseUrl(req, config.appBaseUrl);
+    const resolveBaseUrl = (req) => getBaseUrl(req, config.isProduction ? config.appBaseUrl : undefined);
 
     app.disable("x-powered-by");
     app.set("trust proxy", 1);
@@ -81,7 +81,6 @@ function buildApp() {
             },
         })
     );
-    app.use(cors(buildCorsOptions()));
     app.use(compression());
     if (!config.isProduction) app.use(morgan("dev"));
 
@@ -106,6 +105,7 @@ function buildApp() {
     app.use(express.static(config.staticDir, { maxAge: config.isProduction ? "1h" : 0 }));
     app.use("/uploads", express.static(config.uploadDir, { maxAge: config.isProduction ? "7d" : 0 }));
 
+    app.use("/api", cors(buildCorsOptions()));
     app.use("/api", apiLimiter);
     app.use(
         "/api",
