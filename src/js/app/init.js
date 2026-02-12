@@ -112,13 +112,14 @@ function bindGenerateAction() {
             const result = await createShareLink(payload);
             applyPayload(result.payload);
             showAskPage();
-            const localShareUrl = `${window.location.origin}/?v=${encodeURIComponent(result.token)}`;
+            const tokenQuery = `?v=${encodeURIComponent(result.token || "")}`;
+            const localShareUrl = new URL(tokenQuery, window.location.origin).toString();
             // Update URL immediately so share link is visible even if clipboard API is slow/blocked.
-            window.history.replaceState({}, "", localShareUrl);
+            window.history.replaceState({}, "", tokenQuery);
             showQuickShare(localShareUrl);
 
             navigator.clipboard
-                .writeText(result.shareUrl)
+                .writeText(result.shareUrl || localShareUrl)
                 .then(() => showTopBubble("Share link copied"))
                 .catch(() => showTopBubble("Shareable link is now in your address bar"));
             setStatus("");
