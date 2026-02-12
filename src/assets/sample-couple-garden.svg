@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Whimsical couple illustration">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffd9b3"/>
+      <stop offset="45%" stop-color="#ffd6e7"/>
+      <stop offset="100%" stop-color="#d9e8ff"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9ed39f"/>
+      <stop offset="100%" stop-color="#6eaf80"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff6c2"/>
+      <stop offset="100%" stop-color="#ffd38a"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="900" fill="url(#sky)"/>
+  <circle cx="910" cy="170" r="95" fill="url(#sun)" opacity="0.9"/>
+
+  <g fill="#ffffff" opacity="0.55">
+    <ellipse cx="230" cy="180" rx="95" ry="35"/>
+    <ellipse cx="300" cy="180" rx="72" ry="28"/>
+    <ellipse cx="500" cy="120" rx="80" ry="28"/>
+    <ellipse cx="565" cy="120" rx="60" ry="24"/>
+  </g>
+
+  <path d="M0,620 C230,560 430,680 650,640 C850,610 1030,700 1200,650 L1200,900 L0,900 Z" fill="url(#ground)"/>
+  <path d="M0,700 C220,660 450,730 700,710 C930,690 1080,750 1200,730 L1200,900 L0,900 Z" fill="#4f8e67" opacity="0.45"/>
+
+  <g transform="translate(430 470)">
+    <circle cx="80" cy="82" r="45" fill="#f6d3bb"/>
+    <path d="M36,84 C34,46 56,24 88,24 C120,24 142,48 140,84 C132,62 118,52 96,52 C72,52 52,66 36,84 Z" fill="#3f2b2a"/>
+    <rect x="40" y="126" width="82" height="148" rx="24" fill="#7ca6df"/>
+    <rect x="26" y="154" width="24" height="88" rx="12" fill="#f6d3bb"/>
+    <rect x="112" y="154" width="24" height="88" rx="12" fill="#f6d3bb"/>
+  </g>
+
+  <g transform="translate(585 468)">
+    <circle cx="80" cy="84" r="45" fill="#f7d8c2"/>
+    <path d="M38,78 C40,34 66,16 98,26 C124,34 138,58 136,90 C124,70 110,62 92,62 C72,62 52,68 38,78 Z" fill="#4f352f"/>
+    <rect x="40" y="126" width="82" height="148" rx="24" fill="#f08aa6"/>
+    <rect x="24" y="154" width="24" height="88" rx="12" fill="#f7d8c2"/>
+    <rect x="114" y="154" width="24" height="88" rx="12" fill="#f7d8c2"/>
+  </g>
+
+  <path d="M541,614 C566,588 597,596 619,622" stroke="#f6d3bb" stroke-width="14" stroke-linecap="round" fill="none"/>
+  <path d="M661,624 C686,598 712,596 733,616" stroke="#f7d8c2" stroke-width="14" stroke-linecap="round" fill="none"/>
+  <path d="M620,625 C638,612 658,612 676,625" stroke="#f6d3bb" stroke-width="12" stroke-linecap="round" fill="none"/>
+
+  <g fill="#ff7ea5" opacity="0.8">
+    <path d="M292,522 C292,508 312,506 318,520 C324,506 344,508 344,522 C344,536 318,552 318,552 C318,552 292,536 292,522 Z"/>
+    <path d="M838,432 C838,420 856,418 862,430 C868,418 886,420 886,432 C886,444 862,458 862,458 C862,458 838,444 838,432 Z"/>
+    <path d="M972,580 C972,570 986,568 991,578 C996,568 1010,570 1010,580 C1010,590 991,602 991,602 C991,602 972,590 972,580 Z"/>
+  </g>
+
+  <g fill="#ffd972" opacity="0.85">
+    <circle cx="170" cy="760" r="5"/>
+    <circle cx="204" cy="740" r="4"/>
+    <circle cx="244" cy="768" r="6"/>
+    <circle cx="872" cy="774" r="5"/>
+    <circle cx="910" cy="752" r="4"/>
+    <circle cx="942" cy="780" r="5"/>
+  </g>
+</svg>

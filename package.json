@@ -1,0 +1,29 @@
+{
+  "name": "valentines-day-website",
+  "version": "1.0.0",
+  "description": "Valentine page generator with instant share links.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node server/index.js"
+  },
+  "dependencies": {
+    "cloudinary": "^2.6.0",
+    "compression": "^1.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0",
+    "nedb-promises": "^6.2.3"
+  },
+  "keywords": [
+    "valentine",
+    "website",
+    "love",
+    "share-link"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Will you be my Valentine? 💘</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body>
+  <canvas id="confetti"></canvas>
+  <div id="topBubble"></div>
+
+  <!-- Form page -->
+  <div class="wrap" id="formPage">
+    <h1>Create Your Valentine Page 💘</h1>
+
+    <div class="personalizeCard">
+      <div class="fieldGrid">
+        <label class="fieldLabel" for="fromNameInput">Your name</label>
+        <input class="fieldInput" id="fromNameInput" type="text" placeholder="Your name" />
+
+        <label class="fieldLabel" for="toNameInput">Loved one's name</label>
+        <input class="fieldInput" id="toNameInput" type="text" placeholder="Their name" />
+
+        <label class="fieldLabel" for="quoteInput">Quote below the picture</label>
+        <textarea class="fieldInput fieldTextarea" id="quoteInput"
+          placeholder="Write your special quote..."></textarea>
+
+        <label class="fieldLabel" for="photoInput">Upload your picture</label>
+        <input class="fieldInput fileInput" id="photoInput" type="file" accept="image/*" />
+
+      </div>
+
+      <p class="paymentHint">Payment is required to generate a shareable link.</p>
+      <button id="generateBtn">Proceed To Payment</button>
+      <a class="samplePreviewLink" href="/?sample=1">View Sample Page</a>
+      <div class="statusText" id="statusText"></div>
+    </div>
+  </div>
+
+  <!-- Ask page -->
+  <div class="wrap hidden" id="askPage">
+    <h1 id="askTitle">Will you be my valentine? 💘</h1>
+    <div class="buttons">
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn">No</button>
+    </div>
+  </div>
+
+  <div class="tag" id="footerTag">made with ❤️</div>
+
+  <!-- Success page -->
+  <div class="successWrap" id="successPage">
+    <div class="successCard">
+      <div class="decor d1">🌸</div>
+      <div class="decor d2">🎀</div>
+      <div class="decor d3">💖</div>
+      <div class="decor d4">🌹</div>
+
+      <img class="successImg" id="successImg" src="assets/sample-couple-garden.svg" alt="Sample couple illustration" />
+
+      <div class="successText" id="successQuote">
+        In your happiness, I’ll celebrate you.<br />
+        In your struggles, I’ll stand beside you.<br />
+        In every season of life, I’ll be yours. 💞
+      </div>
+      <div class="signature" id="signature">— Your Name</div>
+    </div>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+
+</html>
