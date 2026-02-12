@@ -16,5 +16,8 @@ export const dom = {
     toNameInput: document.getElementById("toNameInput"),
     quoteInput: document.getElementById("quoteInput"),
     photoInput: document.getElementById("photoInput"),
+    quickShare: document.getElementById("quickShare"),
+    quickShareInput: document.getElementById("quickShareInput"),
+    quickShareCopyBtn: document.getElementById("quickShareCopyBtn"),
     confettiCanvas: document.getElementById("confetti"),
 };

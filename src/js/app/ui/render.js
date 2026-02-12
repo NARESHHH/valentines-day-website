@@ -52,6 +52,15 @@ export function showAskPage() {
     dom.askPage.classList.remove("hidden");
 }
 
+export function showQuickShare(url) {
+    dom.quickShareInput.value = url;
+    dom.quickShare.classList.remove("hidden");
+}
+
+export function hideQuickShare() {
+    dom.quickShare.classList.add("hidden");
+}
+
 export function transitionToSuccess() {
     dom.askPage.classList.add("hide");
     dom.footerTag.classList.add("hide");

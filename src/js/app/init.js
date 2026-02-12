@@ -4,9 +4,11 @@ import { cleanName } from "./utils/text.js";
 import { createShareLink, loadByToken } from "./services/api.js";
 import { showTopBubble } from "./ui/bubble.js";
 import {
+    hideQuickShare,
     renderGeneratedPage,
     setStatus,
     showAskPage,
+    showQuickShare,
     transitionToSuccess,
 } from "./ui/render.js";
 import { startHearts } from "./effects/hearts.js";
@@ -113,6 +115,7 @@ function bindGenerateAction() {
             const localShareUrl = `${window.location.origin}/?v=${encodeURIComponent(result.token)}`;
             // Update URL immediately so share link is visible even if clipboard API is slow/blocked.
             window.history.replaceState({}, "", localShareUrl);
+            showQuickShare(localShareUrl);
 
             navigator.clipboard
                 .writeText(result.shareUrl)
@@ -123,6 +126,22 @@ function bindGenerateAction() {
             setStatus(error.message, true);
         } finally {
             dom.generateBtn.disabled = false;
+        }
+    });
+}
+
+function bindQuickShareCopy() {
+    dom.quickShareCopyBtn.addEventListener("click", async () => {
+        const url = dom.quickShareInput.value.trim();
+        if (!url) return;
+
+        try {
+            await navigator.clipboard.writeText(url);
+            showTopBubble("Share link copied");
+        } catch {
+            dom.quickShareInput.focus();
+            dom.quickShareInput.select();
+            showTopBubble("Press Ctrl/Cmd + C to copy");
         }
     });
 }
@@ -144,6 +163,7 @@ async function initFromUrl() {
     if (isSampleMode) {
         applyPayload(samplePayload);
         showAskPage();
+        hideQuickShare();
         setStatus("");
         showTopBubble("Sample preview mode");
         return;
@@ -155,6 +175,7 @@ async function initFromUrl() {
         const payload = await loadByToken(token);
         applyPayload(payload);
         showAskPage();
+        hideQuickShare();
         setStatus("");
     } catch (error) {
         setStatus(error.message, true);
@@ -176,6 +197,7 @@ export function initApp() {
 
     bindPhotoUploadPreview();
     bindGenerateAction();
+    bindQuickShareCopy();
     bindYesAction({ stopHearts, startConfetti });
 
     initFromUrl();
