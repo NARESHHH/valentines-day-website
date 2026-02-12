@@ -16,10 +16,18 @@ const { buildApiRouter } = require("./routes/api");
 
 function buildCorsOptions() {
     function normalizeOrigin(value) {
-        return (value || "").trim().toLowerCase().replace(/\/+$/, "");
+        return (value || "")
+            .trim()
+            .replace(/^['"]+|['"]+$/g, "")
+            .toLowerCase()
+            .replace(/\/+$/, "");
     }
 
-    const allowedOrigins = config.allowedOrigins.map(normalizeOrigin).filter(Boolean);
+    const allowedOrigins = new Set(
+        [...config.allowedOrigins, config.appBaseUrl]
+            .map(normalizeOrigin)
+            .filter(Boolean)
+    );
 
     if (config.allowedOrigins.length === 0) {
         return { origin: true, credentials: false };
@@ -27,7 +35,7 @@ function buildCorsOptions() {
 
     return {
         origin(origin, callback) {
-            if (!origin || allowedOrigins.includes(normalizeOrigin(origin))) {
+            if (!origin || allowedOrigins.has(normalizeOrigin(origin))) {
                 callback(null, true);
                 return;
             }
