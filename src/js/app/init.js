@@ -111,14 +111,13 @@ function bindGenerateAction() {
             applyPayload(result.payload);
             showAskPage();
             const localShareUrl = `${window.location.origin}/?v=${encodeURIComponent(result.token)}`;
-            try {
-                await navigator.clipboard.writeText(result.shareUrl);
-                showTopBubble("Share link copied");
-            } catch {
-                showTopBubble("Shareable link is now in your address bar");
-            }
-            // Force navigation so URL bar always contains the tokenized share link.
-            window.location.assign(localShareUrl);
+            // Update URL immediately so share link is visible even if clipboard API is slow/blocked.
+            window.history.replaceState({}, "", localShareUrl);
+
+            navigator.clipboard
+                .writeText(result.shareUrl)
+                .then(() => showTopBubble("Share link copied"))
+                .catch(() => showTopBubble("Shareable link is now in your address bar"));
             setStatus("");
         } catch (error) {
             setStatus(error.message, true);
