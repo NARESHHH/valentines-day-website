@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const helmet = require("helmet");
-const cors = require("cors");
 const compression = require("compression");
 const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
@@ -13,37 +12,6 @@ const { createLinkService } = require("./services/linkService");
 const { createDatabaseService } = require("./services/databaseService");
 const { createImageStorageService } = require("./services/imageStorageService");
 const { buildApiRouter } = require("./routes/api");
-
-function buildCorsOptions() {
-    function normalizeOrigin(value) {
-        return (value || "")
-            .trim()
-            .replace(/^['"]+|['"]+$/g, "")
-            .toLowerCase()
-            .replace(/\/+$/, "");
-    }
-
-    const allowedOrigins = new Set(
-        [...config.allowedOrigins, config.appBaseUrl]
-            .map(normalizeOrigin)
-            .filter(Boolean)
-    );
-
-    if (config.allowedOrigins.length === 0) {
-        return { origin: true, credentials: false };
-    }
-
-    return {
-        origin(origin, callback) {
-            if (!origin || allowedOrigins.has(normalizeOrigin(origin))) {
-                callback(null, true);
-                return;
-            }
-            callback(new Error("Not allowed by CORS"));
-        },
-        credentials: false,
-    };
-}
 
 function buildApp() {
     const app = express();
@@ -119,7 +87,6 @@ function buildApp() {
     app.use(express.static(config.staticDir, { maxAge: config.isProduction ? "1h" : 0 }));
     app.use("/uploads", express.static(config.uploadDir, { maxAge: config.isProduction ? "7d" : 0 }));
 
-    app.use("/api", cors(buildCorsOptions()));
     app.use("/api", apiLimiter);
     app.use(
         "/api",
@@ -136,10 +103,6 @@ function buildApp() {
 
     app.use((err, req, res, next) => {
         if (!err) return next();
-
-        if (err.message === "Not allowed by CORS") {
-            return res.status(403).json({ error: "Origin not allowed" });
-        }
 
         // eslint-disable-next-line no-console
         console.error(err);
