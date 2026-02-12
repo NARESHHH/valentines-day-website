@@ -110,6 +110,13 @@ function bindGenerateAction() {
             const result = await createShareLink(payload);
             applyPayload(result.payload);
             showAskPage();
+            window.history.replaceState({}, "", result.shareUrl);
+            try {
+                await navigator.clipboard.writeText(result.shareUrl);
+                showTopBubble("Share link copied");
+            } catch {
+                showTopBubble("Shareable link is now in your address bar");
+            }
             setStatus("");
         } catch (error) {
             setStatus(error.message, true);
