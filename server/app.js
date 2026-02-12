@@ -15,13 +15,19 @@ const { createImageStorageService } = require("./services/imageStorageService");
 const { buildApiRouter } = require("./routes/api");
 
 function buildCorsOptions() {
+    function normalizeOrigin(value) {
+        return (value || "").trim().toLowerCase().replace(/\/+$/, "");
+    }
+
+    const allowedOrigins = config.allowedOrigins.map(normalizeOrigin).filter(Boolean);
+
     if (config.allowedOrigins.length === 0) {
         return { origin: true, credentials: false };
     }
 
     return {
         origin(origin, callback) {
-            if (!origin || config.allowedOrigins.includes(origin)) {
+            if (!origin || allowedOrigins.includes(normalizeOrigin(origin))) {
                 callback(null, true);
                 return;
             }
