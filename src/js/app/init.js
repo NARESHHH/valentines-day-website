@@ -111,23 +111,14 @@ function bindGenerateAction() {
             applyPayload(result.payload);
             showAskPage();
             const localShareUrl = `${window.location.origin}/?v=${encodeURIComponent(result.token)}`;
-            let addressBarUrl = localShareUrl;
-            try {
-                const parsedShareUrl = new URL(result.shareUrl);
-                if (parsedShareUrl.origin === window.location.origin) {
-                    addressBarUrl = parsedShareUrl.toString();
-                }
-            } catch {
-                addressBarUrl = localShareUrl;
-            }
-
-            window.history.replaceState({}, "", addressBarUrl);
             try {
                 await navigator.clipboard.writeText(result.shareUrl);
                 showTopBubble("Share link copied");
             } catch {
                 showTopBubble("Shareable link is now in your address bar");
             }
+            // Force navigation so URL bar always contains the tokenized share link.
+            window.location.assign(localShareUrl);
             setStatus("");
         } catch (error) {
             setStatus(error.message, true);
