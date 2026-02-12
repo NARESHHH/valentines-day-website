@@ -110,7 +110,18 @@ function bindGenerateAction() {
             const result = await createShareLink(payload);
             applyPayload(result.payload);
             showAskPage();
-            window.history.replaceState({}, "", result.shareUrl);
+            const localShareUrl = `${window.location.origin}/?v=${encodeURIComponent(result.token)}`;
+            let addressBarUrl = localShareUrl;
+            try {
+                const parsedShareUrl = new URL(result.shareUrl);
+                if (parsedShareUrl.origin === window.location.origin) {
+                    addressBarUrl = parsedShareUrl.toString();
+                }
+            } catch {
+                addressBarUrl = localShareUrl;
+            }
+
+            window.history.replaceState({}, "", addressBarUrl);
             try {
                 await navigator.clipboard.writeText(result.shareUrl);
                 showTopBubble("Share link copied");
